@@ -1,0 +1,21 @@
+camada,tabela,atributo,linhas,nulos,nulos_pct,distintos,violacoes_dominio,regra
+origem,pedidos,order_id,99441,0,0.0,99441,0,identificador hexadecimal de 32 caracteres
+origem,pedidos,customer_id,99441,0,0.0,99441,0,identificador hexadecimal de 32 caracteres
+origem,pedidos,order_status,99441,0,0.0,8,0,status documentado
+origem,pedidos,order_purchase_timestamp,99441,0,0.0,98875,0,timestamp parseável
+origem,pedidos,order_approved_at,99441,160,0.1608994278014099,90733,0,timestamp parseável
+origem,pedidos,order_delivered_carrier_date,99441,1783,1.7930229985619612,81018,0,timestamp parseável
+origem,pedidos,order_delivered_customer_date,99441,2965,2.981667521444877,95664,0,timestamp parseável
+origem,pedidos,order_estimated_delivery_date,99441,0,0.0,459,0,timestamp parseável
+origem,clientes,customer_id,99441,0,0.0,99441,0,identificador hexadecimal de 32 caracteres
+origem,clientes,customer_unique_id,99441,0,0.0,96096,0,identificador hexadecimal de 32 caracteres
+origem,clientes,customer_zip_code_prefix,99441,0,0.0,14994,0,prefixo de CEP com 1 a 5 dígitos no CSV
+origem,clientes,customer_city,99441,0,0.0,4119,0,sem domínio fechado; ver catálogo
+origem,clientes,customer_state,99441,0,0.0,27,0,UF brasileira
+origem,avaliacoes,review_id,99224,0,0.0,98410,0,identificador hexadecimal de 32 caracteres
+origem,avaliacoes,order_id,99224,0,0.0,98673,0,identificador hexadecimal de 32 caracteres
+origem,avaliacoes,review_score,99224,0,0.0,5,0,inteiro de 1 a 5
+origem,avaliacoes,review_comment_title,99224,87656,88.34153027493349,4527,0,sem domínio fechado; ver catálogo
+origem,avaliacoes,review_comment_message,99224,58247,58.70253164556962,36159,0,sem domínio fechado; ver catálogo
+origem,avaliacoes,review_creation_date,99224,0,0.0,636,0,timestamp parseável
+origem,avaliacoes,review_answer_timestamp,99224,0,0.0,98248,0,timestamp parseável

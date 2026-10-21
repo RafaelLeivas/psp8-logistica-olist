@@ -1,0 +1,29 @@
+{
+  "pedidos_total": 99441,
+  "pedidos_elegiveis": 96470,
+  "pedidos_excluidos_pontualidade": 2971,
+  "pedidos_entregues_nao_elegiveis": 8,
+  "pedidos_com_etapas_validas": 95082,
+  "avaliacoes_excedentes_por_pedido": 551,
+  "clientes_sem_correspondencia": 0,
+  "pedidos_sem_avaliacao": 768,
+  "pedidos_entregues_sem_sequencia_valida": 1388,
+  "periodo_inicio": "2016-09-04 21:15:19",
+  "periodo_fim": "2018-10-17 17:30:18",
+  "atrasos": 6534,
+  "taxa_atraso": 0.06773090079817559,
+  "ic95_atraso": [
+    0.0661623695954664,
+    0.06933385675103326
+  ],
+  "atraso_mediano_dias": 7.0,
+  "atraso_p90_dias": 22.0,
+  "prazo_mediano_dias": 10.217476851851853,
+  "prazo_p90_dias": 23.09637731481482,
+  "cobertura_avaliacoes_elegiveis": 0.993303617704986,
+  "diferenca_avaliacao_baixa": 0.5315232880711108,
+  "ic95_diferenca_newcombe": [
+    0.5194155324660802,
+    0.543477946673163
+  ]
+}

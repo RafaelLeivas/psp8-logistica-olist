@@ -1,0 +1,30 @@
+{
+  "fonte": "https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce",
+  "download": "https://www.kaggle.com/api/v1/datasets/download/olistbr/brazilian-ecommerce",
+  "licenca": "CC BY-NC-SA 4.0",
+  "processado_em_utc": "2026-10-21T15:04:33.655745+00:00",
+  "modo": "arquivo_local",
+  "arquivo_local_modificado_em_utc": "2026-10-21T14:35:35.142600+00:00",
+  "sha256_zip": "967e41e04fc306fe604e2a693f488995a8b41e5047418f8a5c8e4abd6deca784",
+  "bytes_zip": 44717580,
+  "arquivos": [
+    {
+      "arquivo": "olist_orders_dataset.csv",
+      "linhas": 99441,
+      "bytes": 17654914,
+      "sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf"
+    },
+    {
+      "arquivo": "olist_customers_dataset.csv",
+      "linhas": 99441,
+      "bytes": 9033957,
+      "sha256": "983a422239e1712ded753b3bf9ecf47dc73f144d306029dcfa99e70a226883d2"
+    },
+    {
+      "arquivo": "olist_order_reviews_dataset.csv",
+      "linhas": 99224,
+      "bytes": 14451670,
+      "sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7"
+    }
+  ]
+}
