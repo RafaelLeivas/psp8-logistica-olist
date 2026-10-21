@@ -6,7 +6,7 @@
 
 O MVP organiza dados históricos da Olist em um modelo estrela e produz indicadores para priorizar investigações logísticas. Dos **99.441 pedidos**, **96.470** permitem avaliar pontualidade: **6.534 atrasaram (6,77%)**. São Paulo e Rio de Janeiro somam **50,73% dos atrasos**, mas a taxa de RJ (12,11%) é muito superior à de SP (4,49%). A prioridade depende simultaneamente de volume e risco.
 
-**Situação da execução:** cálculo local concluído e notebook executado pelo autor no Databricks Free Edition em 21/10/2026. As 11 células de código foram observadas com sucesso e os resultados das consultas às tabelas Delta coincidem com o processamento local. A exportação com saídas e as capturas devem acompanhar a pasta `evidencias` antes da entrega final. Este README é o documento principal; o PDF é complementar.
+**Situação da execução:** cálculo local concluído e notebook executado pelo autor no Databricks Free Edition em 21/10/2026. As 11 células de código foram observadas com sucesso e os resultados das consultas às tabelas Delta coincidem com o processamento local. As [capturas reais](evidencias/README.md) comprovam persistência, integridade e respostas às perguntas. Este README é o documento principal; o PDF é complementar.
 
 ## 1. Objetivo e planejamento inicial
 
@@ -188,6 +188,8 @@ python scripts/test_pipeline.py
 
 Também é possível usar `--zip caminho/olist.zip`. Os testes verificam entrega no dia prometido, dados ausentes, avaliação múltipla sem duplicação, soma das durações e limites dos intervalos. A execução local não cria tabelas Delta nem substitui a evidência da nuvem.
 
+Para regenerar os cinco gráficos PNG a partir dos CSV calculados: `python -m pip install -r requirements-visual.txt` e `python scripts/gerar_graficos.py`. O notebook também contém visualizações com Matplotlib.
+
 ```text
 README.md                 documento principal
 notebooks/                execução completa na nuvem
@@ -200,7 +202,7 @@ docs/                     planejamento inicial e instruções
 
 ### Evidências
 
-O [registro de evidências](evidencias/README.md) distingue observação da execução e arquivos exportados. Incluir capturas legíveis da persistência, das tabelas no Catalog e das respostas. O endereço privado do Databricks não substitui evidências acessíveis ao professor. A entrega no fórum deve usar o link público deste repositório.
+O [registro de evidências](evidencias/README.md) apresenta capturas reais e o texto observado na interface. Elas comprovam persistência e respostas; não são uma exportação oficial do notebook. O endereço privado do Databricks não substitui evidências acessíveis ao professor. A entrega no fórum deve usar o link público deste repositório.
 
 ## 10. Fontes, licenças e transparência
 
