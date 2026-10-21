@@ -1,0 +1,98 @@
+Registro de observação da interface do Databricks em 2026-10-21T15:15:29.866Z
+Fonte: notebook executado 01_pipeline_databricks. Texto extraído da interface, não é exportação oficial.
+
+
+--- Cell 6 ---
+11:49 AM (19s)
+6
+bronze, tables, summary, stats, profiles, manifest = run(SOURCE_ZIP, OUTPUT)
+print(json.dumps(manifest, ensure_ascii=False, indent=2))
+print(json.dumps(summary, ensure_ascii=False, indent=2))
+display(profiles)
+See performance (1)
+Checked for improvements
+Table
+--- Cell 8 ---
+11:49 AM (1m)
+8
+from pyspark.sql.types import StructType, StructField, StringType, DoubleType, LongType, 
+BooleanType, TimestampType
+from pandas.api.types import is_bool_dtype, is_integer_dtype, is_numeric_dtype, 
+is_datetime64_any_dtype
+def to_spark(df):
+    fields=[]; kinds=[]
+    for col in df:
+        dtype=df[col].dtype
+        if is_datetime64_any_dtype(dtype): kind="time"; t=TimestampType()
+        elif is_bool_dtype(dtype): kind="bool"; t=BooleanType()
+        elif is_integer_dtype(dtype): kind="int"; t=LongType()
+        elif is_numeric_dtype(dtype): kind="float"; t=DoubleType()
+        else: kind="str"; t=StringType()
+        fields.append(StructField(col,t,True)); kinds.append(kind)
+    rows=[]
+    for record in df.itertuples(index=False,name=None):
+        row=[]
+        for value,kind in zip(record,kinds):
+            if pd.isna(value): row.append(None)
+            elif kind=="time": row.append(pd.Timestamp(value).to_pydatetime())
+            elif kind=="bool": row.append(bool(value))
+            elif kind=="int": row.append(int(value))
+            elif kind=="float": row.append(float(value))
+            else: row.append(str(value))
+        rows.append(tuple(row))
+    return spark.createDataFrame(rows,StructType(fields))
+datasets={**{f"bronze_{k}":v for k,v in bronze.items()},**{f"silver_{k}":v for k,v in tables.
+items()},**{f"gold_{k}":v for k,v in stats.items()},"auditoria_qualidade":profiles}
+verification=[]
+for name,frame in datasets.items():
+    target=f"{CATALOG}.{SCHEMA}.{name}"
+    to_spark(frame).write.format("delta").mode("overwrite").option("overwriteSchema","true").
+    saveAsTable(target)
+    stored=spark.table(target).count()
+    assert stored==len(frame), f"Contagem divergente: {target}"
+    verification.append({"tabela":target,"linhas_origem":len(frame),
+    "linhas_lidas_delta":stored,"confere":True})
+verification=pd.DataFrame(verification)
+display(verification)
+verification.to_csv(Path(OUTPUT)/"verificacao_nuvem.csv",index=False)
+(Path(OUTPUT)/"execucao_nuvem.json").write_text(json.dumps({"concluida_em_utc":datetime.now
+(timezone.utc).isoformat(),"catalogo":CATALOG,"schema":SCHEMA,"tabelas_verificadas":len
+(verification),"sha256_fonte":manifest["sha256_zip"]},indent=2),encoding="utf-8")
+print("PERSISTÊNCIA VERIFICADA: tabelas Delta gravadas e relidas.")
+See performance (27)
+Checked for improvements
+verification:pandas.core.frame.DataFrame = [tabela: object, linhas_origem: int64 ... 2 more fields]
+Table
+--- Cell 10 ---
+11:49 AM (9s)
+10
+prefix=f"{CATALOG}.{SCHEMA}"
+fact=f"{prefix}.silver_fato_pedido"
+display(spark.sql(f"SELECT COUNT(*) AS linhas, COUNT(DISTINCT order_id) AS pedidos_distintos, 
+SUM(CASE WHEN elegivel_pontualidade THEN 1 ELSE 0 END) AS elegiveis, SUM(atrasado) AS atrasos 
+FROM {fact}"))
+check=spark.sql(f"SELECT COUNT(*) n, COUNT(DISTINCT order_id) u, SUM(atrasado) a FROM {fact}
+").first()
+assert check.n==check.u==summary["pedidos_total"] and check.a==summary["atrasos"]
+for key,dim in [("data_compra","dim_data"),("customer_state","dim_destino"),("order_status",
+"dim_status")]:
+    unmatched=spark.sql(f"SELECT COUNT(*) n FROM {fact} f LEFT ANTI JOIN {prefix}.silver_
+    {dim} d ON f.{key}=d.{key}").first().n
+    assert unmatched==0, f"FK sem correspondência: {key}"
+print("Integridade e reconciliação SQL aprovadas.")
+See performance (5)
+Optimize
+Table
+1
+linhas
+pedidos_distintos
+elegiveis
+atrasos
+99441
+99441
+96470
+6534
+1 row
+8.523s runtime
+Refreshed at 10/21/26, 11:49 AM (26m ago)
+Integridade e reconciliação SQL aprovadas.

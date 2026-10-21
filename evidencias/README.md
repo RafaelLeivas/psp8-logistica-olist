@@ -1,15 +1,33 @@
-# Evidências de execução
+# Evidências reais do Databricks
 
-Em 21/10/2026, o autor importou e executou o notebook no Databricks Free Edition. A leitura da interface confirmou 11 células de código concluídas com sucesso, incluindo persistência e validação, e resultados SQL compatíveis com a execução local. Não foram criadas capturas sintéticas.
+Execução em 21/10/2026, às 11h49 (Brasília), no Databricks Free Edition. As capturas abaixo foram obtidas diretamente da interface, sem alterar valores ou produzir saídas sintéticas. O notebook foi importado e executado pelo autor.
 
-Pendente de anexação: exportação do notebook com saídas, capturas da persistência e do Catalog. Não usar os gráficos locais como prova isolada de armazenamento na nuvem. Os CSV de validação são produzidos pela execução no volume do projeto e devem ser exportados diretamente.
+## Persistência e integridade
 
-Correspondência necessária:
-- Persistência: tabela `verification` com origem/Delta e mensagem de verificação.
-- Integridade: 99.441 pedidos distintos, 96.470 elegíveis e 6.534 atrasos.
-- Q2: consulta `gold_por_uf`.
-- Q3: consulta `gold_por_mes`.
-- Q4: consulta `gold_etapas`.
-- Q5: consulta `gold_avaliacoes`.
+13 tabelas Delta foram gravadas e relidas, com todas as contagens iguais às origens. A fato contém 99.441 pedidos distintos; 96.470 são elegíveis e 6.534 atrasaram. As chaves estrangeiras foram conferidas.
 
-Antes de publicar screenshots, ocultar e-mail e dados de conta que não sejam necessários à avaliação. Preservar integralmente os resultados e identificar qualquer ocultação de interface.
+![Persistência Delta](01_persistencia_delta.jpg)
+
+![Validação SQL](02_integridade_sql.jpg)
+
+## Respostas às perguntas
+
+Q2 — destinos:
+
+![Resultados por UF](03_resultados_uf.jpg)
+
+Q3 — evolução mensal:
+
+![Evolução mensal na nuvem](06_evolucao_mensal_nuvem.jpg)
+
+Q4 — decomposição do prazo:
+
+![Etapas](04_etapas_nuvem.jpg)
+
+Q5 — avaliação baixa:
+
+![Avaliações](05_avaliacoes_nuvem.jpg)
+
+O arquivo [registro_execucao_observada.txt](registro_execucao_observada.txt) contém texto das células de coleta, persistência e integridade lido da interface. Inclui o manifesto da coleta em nuvem e a reconciliação das 13 tabelas. Trata-se de registro de observação, não exportação oficial do notebook. O download oficial pelo menu não iniciou durante a interação automatizada.
+
+O notebook em notebooks/ está sem saídas para reprodução. Os resultados e as evidências desta pasta documentam a execução efetivamente observada. As imagens mantêm o contexto da plataforma e não exibem credenciais.
